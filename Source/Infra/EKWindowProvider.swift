@@ -13,7 +13,7 @@ final class EKWindowProvider: EntryPresenterDelegate {
     /** The artificial safe area insets */
     static var safeAreaInsets: UIEdgeInsets {
         if #available(iOS 11.0, *) {
-            return EKWindowProvider.shared.entryWindow?.rootViewController?.view?.safeAreaInsets ?? UIApplication.shared.keyWindow?.rootViewController?.view.safeAreaInsets ?? .zero
+            return EKWindowProvider.shared.entryWindow?.rootViewController?.view?.safeAreaInsets ?? UIApplication.shared.c_window?.rootViewController?.view.safeAreaInsets ?? .zero
         } else {
             let statusBarMaxY = UIApplication.shared.statusBarFrame.maxY
             return UIEdgeInsets(top: statusBarMaxY, left: 0, bottom: 10, right: 0)
@@ -77,10 +77,10 @@ final class EKWindowProvider: EntryPresenterDelegate {
     /** Boilerplate generic setup for entry-window and root-view-controller  */
     private func setupWindowAndRootVC() -> EKRootViewController {
         let entryVC: EKRootViewController
-        if entryWindow == nil {
+        if entryWindow == nil || rootVC == nil {
             entryVC = EKRootViewController(with: self)
             entryWindow = EKWindow(with: entryVC)
-            mainRollbackWindow = UIApplication.shared.keyWindow
+            mainRollbackWindow = UIApplication.shared.c_window
         } else {
             entryVC = rootVC!
         }
@@ -161,7 +161,7 @@ final class EKWindowProvider: EntryPresenterDelegate {
             if let mainRollbackWindow = mainRollbackWindow {
                 mainRollbackWindow.makeKeyAndVisible()
             } else {
-                UIApplication.shared.keyWindow?.makeKeyAndVisible()
+                UIApplication.shared.c_window?.makeKeyAndVisible()
             }
         case .custom(window: let window):
             window.makeKeyAndVisible()
