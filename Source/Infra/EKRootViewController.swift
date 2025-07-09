@@ -61,11 +61,14 @@ class EKRootViewController: UIViewController {
         guard let lastAttributes = lastAttributes else {
             return super.supportedInterfaceOrientations
         }
+        
         switch lastAttributes.positionConstraints.rotation.supportedInterfaceOrientations {
         case .standard:
             return super.supportedInterfaceOrientations
         case .all:
             return .all
+        case let .custom(supportedInterfaceOrientations):
+            return supportedInterfaceOrientations
         }
     }
     
@@ -157,6 +160,7 @@ class EKRootViewController: UIViewController {
         if previousAttributes?.statusBar != attributes.statusBar {
             setNeedsStatusBarAppearanceUpdate()
         }
+        
         if #available(iOS 16.0, *) {
             self.setNeedsUpdateOfSupportedInterfaceOrientations()
         } else { 
