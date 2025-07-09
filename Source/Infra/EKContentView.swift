@@ -170,7 +170,8 @@ class EKContentView: UIView {
             if let screenEdgeResistance = offset.screenEdgeResistance {
                 resistanceConstraint = layoutToSuperview(.top, relation: .greaterThanOrEqual, offset: screenEdgeResistance, priority: .defaultLow)
             }
-            inKeyboardConstraint = layoutToSuperview(.bottom, priority: .defaultLow)
+            // inKeyboardConstraint = layoutToSuperview(.bottom, priority: .defaultLow)
+            inKeyboardConstraint = layoutToSuperview(.bottom, relation: .lessThanOrEqual, priority: .defaultLow)
         default:
             break
         }
