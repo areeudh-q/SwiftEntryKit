@@ -157,9 +157,12 @@ class EKRootViewController: UIViewController {
         if previousAttributes?.statusBar != attributes.statusBar {
             setNeedsStatusBarAppearanceUpdate()
         }
-        
-        if shouldAutorotate {
-            UIViewController.attemptRotationToDeviceOrientation()
+        if #available(iOS 16.0, *) {
+            self.setNeedsUpdateOfSupportedInterfaceOrientations()
+        } else { 
+            if shouldAutorotate {
+                UIViewController.attemptRotationToDeviceOrientation()
+            }
         }
     }
         
